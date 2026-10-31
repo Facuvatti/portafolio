@@ -92,6 +92,7 @@ html[data-intro] #panel {
 html[data-intro] #panel {
   display: block;
   z-index: 2;
+  pointer-events: none;
   background: var(--azul);
   box-shadow: 0 0 140px 30px rgb(40 50 255 / 0.32);
 }
@@ -113,13 +114,15 @@ html[data-intro] #panel::after {
   opacity: var(--cristal, 1);
 }
 
+/* Sin contexto de apilamiento propio: el botón tiene que quedar arriba de la página. */
 .intro {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
+  display: contents;
 }
 
 .intro__lienzo {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
