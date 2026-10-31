@@ -2,7 +2,7 @@
 titulo: Agenda de turnos
 resumen: "Proyecto ficticio de ejemplo: un calendario para que consultorios chicos gestionen sus turnos y recordatorios."
 url: https://example.com
-portada: portada.svg
+portada: portada.jpg
 stack:
   - TypeScript
   - Express

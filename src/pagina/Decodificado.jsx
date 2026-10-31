@@ -1,54 +1,42 @@
 import { useEffect, useState } from 'react'
 
-const SIGNOS = 'ABCDEFGHKMNPRSTUVXYZ0123456789'
-const DURACION = 1100
+const SIGNOS = 'ABCDEF0123456789/<>=#'
+const DURACION = 700
+const PAUSA = 3200
 
-function azar() {
-  return SIGNOS[Math.floor(Math.random() * SIGNOS.length)]
+function ruido(destino, resueltas) {
+  return [...destino].map((letra, i) => (i < resueltas ? letra : SIGNOS[Math.floor(Math.random() * SIGNOS.length)])).join('')
 }
 
-// El texto arranca como ruido y se resuelve letra por letra. Si hay encendido, espera a
-// que la pantalla prenda; así se decodifica dentro del monitor.
-export default function Decodificado({ texto }) {
-  const [resueltas, setResueltas] = useState(() =>
-    document.documentElement.hasAttribute('data-intro') ? 0 : texto.length,
-  )
-  const [, sortear] = useState(0)
+// Rota entre varios textos: cada uno aparece como ruido y se resuelve letra por letra.
+export default function Decodificado({ textos }) {
+  const [indice, setIndice] = useState(0)
+  const [visible, setVisible] = useState(textos[0])
 
   useEffect(() => {
-    if (resueltas >= texto.length) return
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const destino = textos[indice]
+    const inicio = performance.now()
     let cuadro
-    const correr = () => {
-      const inicio = performance.now()
-      const paso = (ahora) => {
-        const avance = Math.min((ahora - inicio) / DURACION, 1)
-        setResueltas(Math.floor(avance * texto.length))
-        sortear((n) => n + 1)
-        if (avance < 1) cuadro = requestAnimationFrame(paso)
-      }
-      cuadro = requestAnimationFrame(paso)
+    let espera
+
+    const paso = (ahora) => {
+      const avance = Math.min((ahora - inicio) / DURACION, 1)
+      setVisible(ruido(destino, Math.floor(avance * destino.length)))
+      if (avance < 1) cuadro = requestAnimationFrame(paso)
+      else espera = setTimeout(() => setIndice((i) => (i + 1) % textos.length), PAUSA)
     }
-    const raiz = document.documentElement
-    if (!raiz.hasAttribute('data-intro')) correr()
-    else window.addEventListener('pantalla-encendida', correr, { once: true })
+    cuadro = requestAnimationFrame(paso)
+
     return () => {
       cancelAnimationFrame(cuadro)
-      window.removeEventListener('pantalla-encendida', correr)
+      clearTimeout(espera)
     }
-    // Se decodifica una sola vez por visita.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  if (resueltas >= texto.length) return texto
+  }, [indice, textos])
 
   return (
-    <span aria-label={texto}>
-      {[...texto].map((letra, i) => (
-        <span key={i} className="letra" aria-hidden="true">
-          <span className="letra__medida">{letra}</span>
-          <span className="letra__signo">{i < resueltas ? letra : azar()}</span>
-        </span>
-      ))}
+    <span className="decodificado" aria-label={textos.join(', ')}>
+      <span aria-hidden="true">{visible}</span>
     </span>
   )
 }

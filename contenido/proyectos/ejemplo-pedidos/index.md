@@ -3,7 +3,7 @@ titulo: Pedidos del barrio
 resumen: "Proyecto ficticio de ejemplo: una app para que los comercios de un barrio reciban pedidos sin intermediarios."
 estado: En desarrollo
 url: https://example.com
-portada: portada.svg
+portada: portada.jpg
 stack:
   - React
   - Node.js

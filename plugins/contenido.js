@@ -22,7 +22,45 @@ function leerMarkdown(archivo) {
 
 function leerPerfil() {
   const { datos, html } = leerMarkdown(path.join(CONTENIDO, 'perfil.md'))
-  return { tecnologias: [], ...datos, html }
+  const foto = datos.foto ? path.join(CONTENIDO, datos.foto) : null
+  if (foto && !fs.existsSync(foto)) throw new Error(`contenido/perfil.md: no existe la imagen ${datos.foto}`)
+  return { disciplinas: [], areas: [], recorrido: [], certificados: [], ...datos, html, foto }
+}
+
+// El calendario público de GitHub, para mostrarlo como panel LED. Si no se puede leer,
+// la sección de actividad no aparece y el sitio se publica igual.
+let actividadGuardada
+
+async function leerActividad(github) {
+  if (actividadGuardada !== undefined) return actividadGuardada
+  actividadGuardada = null
+  const usuario = github?.replace(/\/$/, '').split('/').pop()
+  if (!usuario) return null
+  try {
+    const respuesta = await fetch(`https://github.com/users/${usuario}/contributions`, {
+      signal: AbortSignal.timeout(8000),
+    })
+    if (!respuesta.ok) return null
+    const html = await respuesta.text()
+    const cantidades = new Map(
+      [...html.matchAll(/<tool-tip[^>]*for="([^"]+)"[^>]*>\s*(\d+|No) contribution/g)].map(([, id, n]) => [
+        id,
+        n === 'No' ? 0 : Number(n),
+      ]),
+    )
+    const dias = [...html.matchAll(/<td[^>]*data-date="([^"]+)"[^>]*>/g)]
+      .map(([celda, fecha]) => ({
+        fecha,
+        nivel: Number(celda.match(/data-level="(\d)"/)?.[1] ?? 0),
+        cantidad: cantidades.get(celda.match(/ id="([^"]+)"/)?.[1]) ?? 0,
+      }))
+      .sort((a, b) => a.fecha.localeCompare(b.fecha))
+    if (!dias.length) return null
+    actividadGuardada = { usuario, total: dias.reduce((n, d) => n + d.cantidad, 0), dias }
+  } catch (error) {
+    console.warn('No se pudo leer la actividad de GitHub:', error.message)
+  }
+  return actividadGuardada
 }
 
 function leerProyectos() {
@@ -60,13 +98,7 @@ function leerProyectos() {
     }
   })
 
-  proyectos.sort((a, b) => a.orden - b.orden || a.titulo.localeCompare(b.titulo, 'es'))
-
-  // Cada proyecto recibe un tramo del espectro, salvo el azul, que es el fondo del sitio.
-  return proyectos.map((p, i) => ({
-    ...p,
-    color: p.color ?? `hsl(${(325 + (i * 215) / Math.max(proyectos.length - 1, 1)) % 360} 100% 68%)`,
-  }))
+  return proyectos.sort((a, b) => a.orden - b.orden || a.titulo.localeCompare(b.titulo, 'es'))
 }
 
 // Convierte contenido/ en un módulo de JavaScript. Agregar una carpeta alcanza para
@@ -79,7 +111,7 @@ export default function contenido() {
       if (id === ID) return RESUELTO
     },
 
-    load(id) {
+    async load(id) {
       if (id !== RESUELTO) return
       this.addWatchFile(path.join(CONTENIDO, 'perfil.md'))
 
@@ -93,9 +125,13 @@ export default function contenido() {
         return `{...${JSON.stringify(resto)},portada:portada${i}}`
       })
 
+      const { foto, ...perfil } = leerPerfil()
+      if (foto) imports.push(`import foto from ${JSON.stringify(foto)}`)
+
       return [
         ...imports,
-        `export const perfil = ${JSON.stringify(leerPerfil())}`,
+        `export const perfil = {...${JSON.stringify(perfil)},foto:${foto ? 'foto' : 'null'}}`,
+        `export const actividad = ${JSON.stringify(await leerActividad(perfil.github))}`,
         `export const proyectos = [${lista.join(',')}]`,
       ].join('\n')
     },

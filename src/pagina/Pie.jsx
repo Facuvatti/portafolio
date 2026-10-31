@@ -1,4 +1,5 @@
 import { perfil } from 'virtual:contenido'
+import IconoGithub from './IconoGithub.jsx'
 
 function verEncendido() {
   try {
@@ -13,9 +14,19 @@ export default function Pie() {
       <p>
         {perfil.nombre} {perfil.apellido}, {new Date().getFullYear()}
       </p>
-      <button type="button" onClick={verEncendido}>
-        Ver el encendido de nuevo
-      </button>
+      <div className="pie__acciones">
+        <button type="button" onClick={verEncendido}>
+          Ver el encendido de nuevo
+        </button>
+        <button type="button" onClick={() => window.scrollTo({ top: 0 })}>
+          Volver arriba
+        </button>
+        {perfil.github && (
+          <a href={perfil.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+            <IconoGithub />
+          </a>
+        )}
+      </div>
     </footer>
   )
 }

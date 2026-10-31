@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 
-export const AZUL_PAGINA = '#0b0c64'
+export const AZUL_PAGINA = '#0a0920'
 
 export const uniformes = {
   uTiempo: { value: 0 },
@@ -163,11 +163,18 @@ export function texturaLogo(fondo = AZUL_PAGINA) {
   return lienzo(512, 512, (g, w, h) => {
     g.fillStyle = fondo
     g.fillRect(0, 0, w, h)
-    g.fillStyle = '#ffffff'
-    g.font = '800 190px "Anybody Variable", sans-serif'
-    g.textAlign = 'center'
-    g.textBaseline = 'middle'
-    g.fillText('FV', w / 2, h / 2)
+    // Símbolo de encendido, el mismo del sitio.
+    const r = w * 0.27
+    g.strokeStyle = '#ffffff'
+    g.lineWidth = w * 0.062
+    g.lineCap = 'round'
+    g.beginPath()
+    g.arc(w / 2, h * 0.53, r, -Math.PI / 2 + 0.72, -Math.PI / 2 - 0.72 + Math.PI * 2)
+    g.stroke()
+    g.beginPath()
+    g.moveTo(w / 2, h * 0.2)
+    g.lineTo(w / 2, h * 0.5)
+    g.stroke()
   })
 }
 

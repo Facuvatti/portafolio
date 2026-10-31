@@ -1,37 +1,47 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Link } from 'wouter'
 import { perfil, proyectos } from 'virtual:contenido'
-import Tira from './Tira.jsx'
+import FondoVivo from './FondoVivo.jsx'
+import Pantalla, { useInclinar } from './Pantalla.jsx'
+import Etiquetas from './Etiquetas.jsx'
 import Enlaces from './Enlaces.jsx'
+import Actividad from './Actividad.jsx'
+import Areas from './Areas.jsx'
+import Recorrido from './Recorrido.jsx'
+import IconoGithub from './IconoGithub.jsx'
 import Decodificado from './Decodificado.jsx'
 
-const leds = [
-  { id: 'inicio', nombre: 'Inicio', color: '#ffffff' },
-  ...(proyectos.length
-    ? proyectos.map((p) => ({ id: p.slug, nombre: p.titulo, color: p.color }))
-    : [{ id: 'proyectos', nombre: 'Proyectos', color: '#ffffff' }]),
-  ...(perfil.html ? [{ id: 'sobre-mi', nombre: 'Sobre mí', color: '#ffffff' }] : []),
-  { id: 'contacto', nombre: 'Contacto', color: '#ffffff' },
-]
+function saltar(evento, id) {
+  evento.preventDefault()
+  document.getElementById(id)?.scrollIntoView()
+}
 
 function Fila({ proyecto }) {
   const ruta = `/proyectos/${proyecto.slug}`
   return (
-    <article id={proyecto.slug} className="fila" style={{ '--led': proyecto.color }}>
+    <article className="fila" style={proyecto.color ? { '--led': proyecto.color } : undefined}>
+      <Link href={ruta} className="fila__imagen" tabIndex={-1} aria-hidden="true">
+        <Pantalla proyecto={proyecto} />
+      </Link>
       <div className="fila__texto">
-        <h3 className="fila__titulo">
+        <h3 className="fila__titulo" data-revelar="titulo">
           <Link href={ruta}>{proyecto.titulo}</Link>
         </h3>
-        {proyecto.estado && <p className="estado">{proyecto.estado}</p>}
-        <p className="fila__resumen">{proyecto.resumen}</p>
-        {proyecto.stack.length > 0 && <p className="stack">{proyecto.stack.join(', ')}</p>}
-        <Enlaces proyecto={proyecto} />
+        {proyecto.estado && (
+          <p className="estado" data-revelar style={{ '--orden': 1 }}>
+            {proyecto.estado}
+          </p>
+        )}
+        <p className="fila__resumen" data-revelar style={{ '--orden': 2 }}>
+          {proyecto.resumen}
+        </p>
+        <Etiquetas lista={proyecto.stack} />
+        <Enlaces proyecto={proyecto}>
+          <Link href={ruta} className="boton boton--principal">
+            Ver proyecto
+          </Link>
+        </Enlaces>
       </div>
-      {proyecto.portada && (
-        <Link href={ruta} className="fila__portada" tabIndex={-1} aria-hidden="true">
-          <img src={proyecto.portada} alt="" loading="lazy" />
-        </Link>
-      )}
     </article>
   )
 }
@@ -41,7 +51,7 @@ function SinProyectos() {
     <div className="vacio">
       <p>Todavía no hay proyectos publicados.</p>
       {import.meta.env.DEV && (
-        <p className="stack">
+        <p>
           Para agregar el primero, corré <code>npm run nuevo "Nombre del proyecto"</code>
         </p>
       )}
@@ -49,60 +59,115 @@ function SinProyectos() {
   )
 }
 
+function Retrato() {
+  const caja = useInclinar()
+  return (
+    <figure ref={caja} className="retrato" data-revelar="pantalla">
+      <div className="retrato__marco">
+        <img src={perfil.foto} alt={`Foto de ${perfil.nombre} ${perfil.apellido}`} width="800" height="1067" loading="lazy" />
+      </div>
+    </figure>
+  )
+}
+
 export default function Inicio() {
+  const portada = useRef(null)
+
   useEffect(() => {
     document.title = `${perfil.nombre} ${perfil.apellido}`
   }, [])
 
   return (
-    <>
-      <Tira leds={leds} />
-      <main>
-        <header id="inicio" className="portada">
+    <main>
+      <section id="inicio" ref={portada} className="portada">
+        <FondoVivo contenedor={portada} />
+        <div className="portada__contenido">
           <h1 className="portada__nombre">
-            <span>
-              <Decodificado texto={perfil.nombre} />
+            <span data-revelar="titulo" style={{ '--orden': 1 }}>
+              {perfil.nombre}
             </span>{' '}
-            <span>
-              <Decodificado texto={perfil.apellido} />
+            <span data-revelar="titulo" style={{ '--orden': 3 }}>
+              {perfil.apellido}
             </span>
           </h1>
-          <div className="portada__pie">
-            <p className="portada__rol">{perfil.rol}</p>
-            {perfil.frase && <p className="portada__frase">{perfil.frase}</p>}
-          </div>
-        </header>
+          {perfil.frase && (
+            <p className="portada__frase" data-revelar style={{ '--orden': 7 }}>
+              {perfil.frase}
+            </p>
+          )}
+          {perfil.disciplinas.length > 0 && (
+            <p className="portada__rol" data-revelar style={{ '--orden': 10 }}>
+              <span className="portada__linea" data-revelar="linea" style={{ '--orden': 12 }} />
+              <Decodificado textos={perfil.disciplinas} />
+            </p>
+          )}
+          <p className="botones" data-revelar style={{ '--orden': 15 }}>
+            <a className="boton boton--principal" href="#proyectos" onClick={(e) => saltar(e, 'proyectos')}>
+              Ver proyectos
+            </a>
+            <a className="boton" href="#contacto" onClick={(e) => saltar(e, 'contacto')}>
+              Contacto
+            </a>
+          </p>
+        </div>
+        <a
+          className="indicador"
+          href="#proyectos"
+          aria-label="Ir a los proyectos"
+          onClick={(e) => saltar(e, 'proyectos')}
+          data-revelar
+          style={{ '--orden': 20 }}
+        />
+      </section>
 
-        <section id="proyectos" aria-labelledby="titulo-proyectos" className="proyectos">
-          <h2 id="titulo-proyectos" className="titulo-seccion">
-            Proyectos
-          </h2>
-          {proyectos.length ? proyectos.map((p) => <Fila key={p.slug} proyecto={p} />) : <SinProyectos />}
-        </section>
+      <section id="proyectos" aria-labelledby="titulo-proyectos" className="seccion proyectos">
+        <h2 id="titulo-proyectos" className="titulo-seccion" data-revelar="titulo">
+          Proyectos
+        </h2>
+        {proyectos.length ? proyectos.map((p) => <Fila key={p.slug} proyecto={p} />) : <SinProyectos />}
+      </section>
 
-        {perfil.html && (
-          <section id="sobre-mi" aria-labelledby="titulo-sobre-mi" className="columnas">
-            <h2 id="titulo-sobre-mi" className="titulo-seccion">
+      {perfil.html && (
+        <section id="sobre-mi" aria-labelledby="titulo-sobre-mi" className="seccion sobre-mi">
+          {perfil.foto && <Retrato />}
+          <div>
+            <h2 id="titulo-sobre-mi" className="titulo-seccion" data-revelar="titulo">
               Sobre mí
             </h2>
-            <div>
-              <div className="prosa" dangerouslySetInnerHTML={{ __html: perfil.html }} />
-              {perfil.tecnologias.length > 0 && <p className="stack">{perfil.tecnologias.join(', ')}</p>}
-            </div>
-          </section>
-        )}
-
-        <section id="contacto" aria-labelledby="titulo-contacto" className="columnas">
-          <h2 id="titulo-contacto" className="titulo-seccion">
-            Contacto
-          </h2>
-          <p className="contacto">
-            {perfil.email && <a href={`mailto:${perfil.email}`}>{perfil.email}</a>}
-            {perfil.linkedin && <a href={perfil.linkedin}>LinkedIn</a>}
-            {perfil.github && <a href={perfil.github}>GitHub</a>}
-          </p>
+            <div className="prosa" data-revelar style={{ '--orden': 2 }} dangerouslySetInnerHTML={{ __html: perfil.html }} />
+          </div>
         </section>
-      </main>
-    </>
+      )}
+
+      <Areas />
+      <Recorrido />
+
+      <Actividad />
+
+      <section id="contacto" aria-labelledby="titulo-contacto" className="contacto">
+        <h2 id="titulo-contacto" className="contacto__titulo" data-revelar="titulo">
+          Hablemos
+        </h2>
+        <p className="contacto__texto" data-revelar style={{ '--orden': 2 }}>Si tenés un proyecto o una propuesta de trabajo, escribime.</p>
+        <p className="botones" data-revelar style={{ '--orden': 3 }}>
+          {perfil.email && (
+            <a className="boton boton--principal" href={`mailto:${perfil.email}`}>
+              Enviar un correo
+            </a>
+          )}
+          {perfil.linkedin && (
+            <a className="boton" href={perfil.linkedin} target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+          )}
+          {perfil.github && (
+            <a className="boton" href={perfil.github} target="_blank" rel="noreferrer">
+              <IconoGithub />
+              GitHub
+            </a>
+          )}
+        </p>
+      </section>
+    </main>
   )
 }

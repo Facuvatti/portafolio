@@ -2,7 +2,7 @@
 titulo: Cuentas claras
 resumen: "Proyecto ficticio de ejemplo: un tablero que reparte los gastos de un grupo y calcula quién le debe a quién."
 url: https://example.com
-portada: portada.svg
+portada: portada.jpg
 stack:
   - JavaScript
   - Cloudflare Workers

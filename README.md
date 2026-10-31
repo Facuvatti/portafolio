@@ -35,7 +35,9 @@ El texto debajo del encabezado aparece en la página propia del proyecto.
 
 Las carpetas `ejemplo-*` son proyectos ficticios: borralas cuando cargues los tuyos.
 
-Tu nombre, tu rol, los enlaces de contacto y la sección "Sobre mí" están en `contenido/perfil.md`.
+Tu nombre, la frase de la portada, tu foto, las áreas de "Lo que hago", el recorrido, los certificados y los enlaces de contacto están en `contenido/perfil.md`. El texto debajo del encabezado es la sección "Sobre mí".
+
+La actividad de GitHub se lee al compilar y el sitio se vuelve a publicar una vez por día para mantenerla al día.
 
 ## Desarrollo
 
