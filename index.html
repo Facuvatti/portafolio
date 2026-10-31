@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Facundo Vattino</title>
+    <meta name="description" content="Portafolio de Facundo Vattino." />
+    <meta property="og:title" content="Facundo Vattino" />
+    <meta property="og:description" content="Portafolio de Facundo Vattino." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0b0c64" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <script>
+      // Corre antes del primer pintado para que la página no asome antes del encendido.
+      ;(function () {
+        try {
+          var inicio = location.pathname === '%BASE_URL%' || location.pathname === '%BASE_URL%index.html'
+          var pedido = new URLSearchParams(location.search).has('intro')
+          var calma = matchMedia('(prefers-reduced-motion: reduce)').matches
+          if (inicio && (pedido || (!calma && !sessionStorage.getItem('encendido')))) {
+            document.documentElement.setAttribute('data-intro', '')
+          }
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="raiz"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
