@@ -148,7 +148,7 @@ export default function Inicio() {
         <h2 id="titulo-contacto" className="contacto__titulo" data-revelar="titulo">
           Hablemos
         </h2>
-        <p className="contacto__texto" data-revelar style={{ '--orden': 2 }}>¿Un sistema que falla, una idea sin arrancar o un puesto para cubrir? Contámelo en dos líneas.</p>
+        <p className="contacto__texto" data-revelar style={{ '--orden': 2 }}>¿Un sistema que falla, una idea sin arrancar o un puesto para cubrir? Contámelo en dos líneas. Si no es para ahora, igual me interesa saber qué estás armando.</p>
         <p className="botones" data-revelar style={{ '--orden': 3 }}>
           {perfil.email && (
             <a className="boton boton--principal" href={`mailto:${perfil.email}`}>

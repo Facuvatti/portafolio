@@ -66,9 +66,7 @@ certificados:
   - Inglés B1, EF SET
 ---
 
-Empecé a programar a los 13 con problemas que me importaban: un gestor de portafolio de criptomonedas, un bot de trading y mis primeros modelos con TensorFlow.
-
-Hoy armo sistemas completos. Un panel de reservas con pagos para un centro de gaming, una plataforma de asistencias probada en un entorno real, un servidor propio que se actualiza solo.
+Armo sistemas completos. Un panel de reservas con pagos para un centro de gaming, una plataforma de asistencias probada en un entorno real, un servidor propio que se actualiza solo.
 
 Todavía estoy terminando la secundaria técnica. Mientras tanto doy clases particulares y voy a Ekoparty y Nerdearla a aprender de quienes saben más.
 
