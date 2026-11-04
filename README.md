@@ -9,7 +9,7 @@ Cada proyecto es una carpeta dentro de `contenido/proyectos/`. No hay que tocar 
 **Desde la computadora**
 
 ```bash
-npm run nuevo "Nombre del proyecto"
+pnpm nuevo "Nombre del proyecto"
 ```
 
 Se crea `contenido/proyectos/nombre-del-proyecto/index.md`. Completalo, guardá la portada en esa misma carpeta y hacé push a `main`.
@@ -33,8 +33,6 @@ Cada push a `main` publica el sitio solo.
 
 El texto debajo del encabezado aparece en la página propia del proyecto.
 
-Las carpetas `ejemplo-*` son proyectos ficticios: borralas cuando cargues los tuyos.
-
 Tu nombre, la frase de la portada, tu foto, las áreas de "Lo que hago", el recorrido, los certificados y los enlaces de contacto están en `contenido/perfil.md`. El texto debajo del encabezado es la sección "Sobre mí".
 
 La actividad de GitHub se lee al compilar y el sitio se vuelve a publicar una vez por día para mantenerla al día.
@@ -42,10 +40,12 @@ La actividad de GitHub se lee al compilar y el sitio se vuelve a publicar una ve
 ## Desarrollo
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 El sitio queda en `http://localhost:5173/portafolio/`. Para volver a ver el encendido, agregá `?intro` a la dirección. En desarrollo, `?intro&cuadro=6.5` congela la escena en ese segundo.
 
 En un disco NTFS los binarios nativos de Vite no cargan: `node_modules` tiene que estar en un disco Linux, con un enlace simbólico desde el proyecto.
+
+Las dependencias se instalan con pnpm y `ignore-scripts=true` (en `.npmrc`): ningún paquete corre scripts al instalarse.

@@ -55,7 +55,7 @@ function SinProyectos() {
       <p>Todavía no hay proyectos publicados.</p>
       {import.meta.env.DEV && (
         <p>
-          Para agregar el primero, corré <code>npm run nuevo "Nombre del proyecto"</code>
+          Para agregar el primero, corré <code>pnpm nuevo "Nombre del proyecto"</code>
         </p>
       )}
     </div>

@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-// Uso: npm run nuevo "Nombre del proyecto"
+// Uso: pnpm nuevo "Nombre del proyecto"
 import fs from 'node:fs'
 import path from 'node:path'
 
 const titulo = process.argv.slice(2).join(' ').trim()
 
 if (!titulo) {
-  console.error('Falta el nombre. Ejemplo: npm run nuevo "Mi proyecto"')
+  console.error('Falta el nombre. Ejemplo: pnpm nuevo "Mi proyecto"')
   process.exit(1)
 }
 
