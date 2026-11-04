@@ -1,7 +1,7 @@
 ---
 nombre: Facundo
 apellido: Vattino
-frase: Del BIOS a la interfaz. Armo, programo, despliego y reparo.
+frase: Del BIOS a la interfaz. Encuentro el problema donde esté, en el código, en el servidor o en la placa.
 # Las palabras que rotan en la portada.
 disciplinas:
   - Frontend
@@ -18,22 +18,22 @@ foto: yo.jpg
 
 areas:
   - nombre: Frontend
-    texto: Interfaces web en React y TypeScript, pensadas para quien las usa todos los días.
+    texto: Pantallas que se entienden sin manual, hechas en React y TypeScript.
     herramientas: [React, TypeScript, JavaScript, HTML, CSS]
   - nombre: Backend
-    texto: APIs REST organizadas por funcionalidad, con autenticación, permisos por rol y pagos integrados.
+    texto: APIs que cobran con Mercado Pago, agendan en Google Calendar y deciden quién puede hacer qué.
     herramientas: [Node.js, Express, Python, BetterAuth, Mercado Pago API, Google Calendar API]
   - nombre: Bases de datos
-    texto: Modelado entidad-relación, claves foráneas bien puestas y consultas SQL que rinden.
+    texto: Datos bien modelados desde el primer día, para no tener que rehacer todo cuando el sistema crece.
     herramientas: [SQL, MySQL, MariaDB, SQLite]
   - nombre: Infraestructura
-    texto: Servidores propios, despliegues automáticos y acceso remoto seguro, sin puertos expuestos.
+    texto: Cada cambio se publica solo y el servidor queda accesible sin abrir un solo puerto.
     herramientas: [Docker, Kubernetes, Nginx, GitHub Actions, Cloudflare Tunnel, SSH, Bash]
   - nombre: Soporte técnico
-    texto: Armado y diagnóstico de PCs, recuperación de datos, limpieza de malware y mesa de ayuda.
+    texto: La PC que no arranca, el disco que falla, el malware que no se va. Diagnóstico y solución, a distancia o en persona.
     herramientas: [BIOS/UEFI, Ventoy, Clonezilla, MemTest86, Hiren's BootCD, AnyDesk]
   - nombre: Agentes de IA
-    texto: Orquestación de agentes, ingeniería de contexto y servidores MCP para flujos de trabajo confiables.
+    texto: Agentes que trabajan con contexto y herramientas reales, no solo con un chat.
     herramientas: [Claude Code, MCP, Context7, Engram, CodeGraph, Linear]
 
 recorrido:
@@ -66,6 +66,10 @@ certificados:
   - Inglés B1, EF SET
 ---
 
-Programo desde los 13 años. Aprendí haciendo: un gestor de portafolio de criptomonedas, un bot de trading, mis primeras pruebas con TensorFlow.
+Empecé a programar a los 13 con problemas que me importaban: un gestor de portafolio de criptomonedas, un bot de trading y mis primeros modelos con TensorFlow.
 
-Nunca me quedé en una sola capa. Si un sistema falla, quiero entender por qué, sea el código, el servidor, la red o el disco. Por eso no me defino por un rol: voy a donde esté el problema.
+Hoy armo sistemas completos. Un panel de reservas con pagos para un centro de gaming, una plataforma de asistencias probada en un entorno real, un servidor propio que se actualiza solo.
+
+Todavía estoy terminando la secundaria técnica. Mientras tanto doy clases particulares y voy a Ekoparty y Nerdearla a aprender de quienes saben más.
+
+Por eso no me defino por un rol: voy a donde esté el problema.

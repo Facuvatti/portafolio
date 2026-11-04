@@ -24,7 +24,7 @@ export default function Actividad() {
           Actividad
         </h2>
         <p className="actividad__total" data-revelar style={{ '--orden': 2 }}>
-          {total} contribuciones en GitHub durante el último año.{' '}
+          Mi último año en GitHub, día por día: {total} contribuciones.{' '}
           <a href={perfil.github} target="_blank" rel="noreferrer">
             Ver el perfil
           </a>

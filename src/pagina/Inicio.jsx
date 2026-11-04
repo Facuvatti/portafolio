@@ -106,7 +106,7 @@ export default function Inicio() {
               Ver proyectos
             </a>
             <a className="boton" href="#contacto" onClick={(e) => saltar(e, 'contacto')}>
-              Contacto
+              Escribime
             </a>
           </p>
         </div>
@@ -148,7 +148,7 @@ export default function Inicio() {
         <h2 id="titulo-contacto" className="contacto__titulo" data-revelar="titulo">
           Hablemos
         </h2>
-        <p className="contacto__texto" data-revelar style={{ '--orden': 2 }}>Si tenés un proyecto o una propuesta de trabajo, escribime.</p>
+        <p className="contacto__texto" data-revelar style={{ '--orden': 2 }}>¿Un sistema que falla, una idea sin arrancar o un puesto para cubrir? Contámelo en dos líneas.</p>
         <p className="botones" data-revelar style={{ '--orden': 3 }}>
           {perfil.email && (
             <a className="boton boton--principal" href={`mailto:${perfil.email}`}>
