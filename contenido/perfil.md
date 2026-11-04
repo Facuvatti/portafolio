@@ -70,4 +70,4 @@ Armo sistemas completos. Un panel de reservas con pagos para un centro de gaming
 
 Todavía estoy terminando la secundaria técnica. Mientras tanto doy clases particulares y voy a Ekoparty y Nerdearla a aprender de quienes saben más.
 
-Por eso no me defino por un rol: voy a donde esté el problema.
+No me defino por un rol: voy a donde esté el problema.
