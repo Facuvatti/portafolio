@@ -1,6 +1,8 @@
 ---
 nombre: Facundo
 apellido: Vattino
+disponibilidad: Busco part-time, remoto o en Buenos Aires.
+cv: cv/Facundo-Vattino-CV.pdf
 frase: Del BIOS a la interfaz. Encuentro el problema donde esté, en el código, en el servidor o en la placa.
 # Las palabras que rotan en la portada.
 disciplinas:
@@ -15,6 +17,8 @@ foto: yo.jpg
 # Lo que está comentado no se muestra. Sacale el # para activarlo.
 # email: tu@correo.com
 # linkedin: https://www.linkedin.com/in/tu-usuario
+# Dirección de un formulario de Formspree (formspree.io) para que te pidan el CV por correo.
+# formulario: https://formspree.io/f/tu-codigo
 
 areas:
   - nombre: Frontend
@@ -22,18 +26,18 @@ areas:
     herramientas: [React, TypeScript, JavaScript, HTML, CSS]
   - nombre: Backend
     texto: APIs que cobran con Mercado Pago, agendan en Google Calendar y deciden quién puede hacer qué.
-    herramientas: [Node.js, Express, Python, BetterAuth, Mercado Pago API, Google Calendar API]
+    herramientas: [Node.js, Express, Python, FastAPI, Django, BetterAuth, Mercado Pago API, Google Calendar API]
   - nombre: Bases de datos
-    texto: Datos bien modelados desde el primer día, para no tener que rehacer todo cuando el sistema crece.
+    texto: Datos bien modelados desde el primer día. Claves UUID contra accesos indebidos, triggers que otorgan la membresía en cuanto se paga y vistas para responder rápido.
     herramientas: [SQL, MySQL, MariaDB, SQLite]
   - nombre: Infraestructura
-    texto: Cada cambio se publica solo y el servidor queda accesible sin abrir un solo puerto.
+    texto: "Cada cambio se publica solo, sin cortar el servicio: el contenedor nuevo reemplaza al anterior recién cuando pasa las pruebas. Y el servidor queda accesible sin abrir un solo puerto."
     herramientas: [Docker, Kubernetes, Nginx, GitHub Actions, Cloudflare Tunnel, SSH, Bash]
   - nombre: Soporte técnico
     texto: La PC que no arranca, el disco que falla, el malware que no se va. Diagnóstico y solución, a distancia o en persona.
     herramientas: [BIOS/UEFI, Ventoy, Clonezilla, MemTest86, Hiren's BootCD, AnyDesk]
   - nombre: Agentes de IA
-    texto: Agentes que trabajan con contexto y herramientas reales, no solo con un chat.
+    texto: Agentes que trabajan con contexto y herramientas reales, no solo con un chat. Reescribí un orquestador de agentes de código abierto para que fuera modular.
     herramientas: [Claude Code, MCP, Context7, Engram, CodeGraph, Linear]
 
 recorrido:

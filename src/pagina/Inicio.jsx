@@ -10,6 +10,9 @@ import Areas from './Areas.jsx'
 import Recorrido from './Recorrido.jsx'
 import IconoGithub from './IconoGithub.jsx'
 import Decodificado from './Decodificado.jsx'
+import PedirCv from './PedirCv.jsx'
+
+const CV = perfil.cv ? `${import.meta.env.BASE_URL}${perfil.cv}` : null
 
 function saltar(evento, id) {
   evento.preventDefault()
@@ -82,6 +85,11 @@ export default function Inicio() {
       <section id="inicio" ref={portada} className="portada">
         <FondoVivo contenedor={portada} />
         <div className="portada__contenido">
+          {perfil.disponibilidad && (
+            <p className="disponible" data-revelar>
+              {perfil.disponibilidad}
+            </p>
+          )}
           <h1 className="portada__nombre">
             <span data-revelar="titulo" style={{ '--orden': 1 }}>
               {perfil.nombre}
@@ -105,9 +113,15 @@ export default function Inicio() {
             <a className="boton boton--principal" href="#proyectos" onClick={(e) => saltar(e, 'proyectos')}>
               Ver proyectos
             </a>
-            <a className="boton" href="#contacto" onClick={(e) => saltar(e, 'contacto')}>
-              Escribime
-            </a>
+            {CV ? (
+              <a className="boton" href={CV} download>
+                Descargar CV
+              </a>
+            ) : (
+              <a className="boton" href="#contacto" onClick={(e) => saltar(e, 'contacto')}>
+                Contacto
+              </a>
+            )}
           </p>
         </div>
         <a
@@ -150,14 +164,19 @@ export default function Inicio() {
         </h2>
         <p className="contacto__texto" data-revelar style={{ '--orden': 2 }}>¿Un sistema que falla, una idea sin arrancar o un puesto para cubrir? Contámelo en dos líneas. Si no es para ahora, igual me interesa saber qué estás armando.</p>
         <p className="botones" data-revelar style={{ '--orden': 3 }}>
+          {perfil.linkedin && (
+            <a className="boton boton--principal" href={perfil.linkedin} target="_blank" rel="noreferrer">
+              Escribime por LinkedIn
+            </a>
+          )}
+          {CV && (
+            <a className="boton" href={CV} download>
+              Descargar CV
+            </a>
+          )}
           {perfil.email && (
             <a className="boton boton--principal" href={`mailto:${perfil.email}`}>
               Enviar un correo
-            </a>
-          )}
-          {perfil.linkedin && (
-            <a className="boton" href={perfil.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn
             </a>
           )}
           {perfil.github && (
@@ -167,6 +186,7 @@ export default function Inicio() {
             </a>
           )}
         </p>
+        {perfil.formulario && <PedirCv />}
       </section>
     </main>
   )
