@@ -44,7 +44,7 @@ pnpm install
 pnpm dev
 ```
 
-El sitio queda en `http://localhost:5173/portafolio/`. Para volver a ver el encendido, agregá `?intro` a la dirección. En desarrollo, `?intro&cuadro=6.5` congela la escena en ese segundo.
+El sitio queda en `http://localhost:5173/`. Para volver a ver el encendido, agregá `?intro` a la dirección. En desarrollo, `?intro&cuadro=6.5` congela la escena en ese segundo.
 
 En un disco NTFS los binarios nativos de Vite no cargan: `node_modules` tiene que estar en un disco Linux, con un enlace simbólico desde el proyecto.
 
