@@ -65,9 +65,9 @@ function SinProyectos() {
 function Retrato() {
   const caja = useInclinar()
   return (
-    <figure ref={caja} className="retrato" data-revelar="pantalla">
+    <figure ref={caja} className="retrato" data-revelar="pantalla" style={{ '--orden': 2 }}>
       <div className="retrato__marco">
-        <img src={perfil.foto} alt={`Foto de ${perfil.nombre} ${perfil.apellido}`} width="800" height="1067" loading="lazy" />
+        <img src={perfil.foto} alt={`Foto de ${perfil.nombre} ${perfil.apellido}`} width="800" height="1067" />
       </div>
     </figure>
   )
@@ -84,6 +84,7 @@ export default function Inicio() {
     <main>
       <section id="inicio" ref={portada} className="portada">
         <FondoVivo contenedor={portada} />
+        {perfil.foto && <Retrato />}
         <div className="portada__contenido">
           {perfil.disponibilidad && (
             <p className="disponible" data-revelar>
@@ -143,7 +144,6 @@ export default function Inicio() {
 
       {perfil.html && (
         <section id="sobre-mi" aria-labelledby="titulo-sobre-mi" className="seccion sobre-mi">
-          {perfil.foto && <Retrato />}
           <div>
             <h2 id="titulo-sobre-mi" className="titulo-seccion" data-revelar="titulo">
               Sobre mí

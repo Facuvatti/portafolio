@@ -9,7 +9,7 @@ stack:
   - BetterAuth
   - Mercado Pago API
   - Google Calendar API
-orden: 0
+orden: 2
 ---
 
 ## Antes de programar, escuché

@@ -339,6 +339,21 @@ main {
   position: relative;
 }
 
+/* La foto acompaña al nombre: a la derecha en pantallas anchas, arriba en el celular. */
+.portada .retrato {
+  position: absolute;
+  right: clamp(48px, calc(var(--vw) * 9), 160px);
+  bottom: clamp(36px, 8svh, 84px);
+  z-index: 1;
+  width: min(calc(var(--vw) * 26), 46svh);
+}
+
+@media (min-width: 901px) {
+  .portada:has(.retrato) .portada__contenido {
+    padding-right: calc(min(calc(var(--vw) * 26), 46svh) + clamp(48px, calc(var(--vw) * 9), 160px));
+  }
+}
+
 .portada__nombre {
   position: relative;
   font-family: var(--titulos);
@@ -779,9 +794,7 @@ main {
 
 .sobre-mi {
   display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
-  gap: 28px clamp(32px, calc(var(--vw) * 7), 112px);
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .retrato {
@@ -1213,8 +1226,12 @@ main {
     min-height: 14rem;
   }
 
-  .retrato {
-    max-width: 420px;
+  .portada .retrato {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(46vw, 210px);
+    margin-bottom: 20px;
   }
 }
 
