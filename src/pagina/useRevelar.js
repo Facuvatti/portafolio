@@ -18,7 +18,8 @@ export default function useRevelar(ruta) {
     )
     const observar = () => {
       for (const e of document.querySelectorAll('[data-revelar]:not([data-visible])')) {
-        if (calma) e.setAttribute('data-visible', '')
+        // La portada se ve entera al llegar: no espera a que cada parte suba por la pantalla.
+        if (calma || e.closest('.portada')) e.setAttribute('data-visible', '')
         else observador.observe(e)
       }
     }

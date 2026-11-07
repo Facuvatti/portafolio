@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'wouter'
 import { perfil, proyectos } from 'virtual:contenido'
 import FondoVivo from './FondoVivo.jsx'
-import Pantalla, { useInclinar } from './Pantalla.jsx'
+import Pantalla from './Pantalla.jsx'
 import Etiquetas from './Etiquetas.jsx'
 import Enlaces from './Enlaces.jsx'
 import Actividad from './Actividad.jsx'
@@ -62,14 +62,18 @@ function SinProyectos() {
   )
 }
 
+// La foto va recortada, sin fondo: aparece desde el borde de la portada, con la luz detrás.
 function Retrato() {
-  const caja = useInclinar()
   return (
-    <figure ref={caja} className="retrato" data-revelar="pantalla" style={{ '--orden': 2 }}>
-      <div className="retrato__marco">
-        <img src={perfil.foto} alt={`Foto de ${perfil.nombre} ${perfil.apellido}`} width="800" height="1067" />
-      </div>
-    </figure>
+    <img
+      className="portada__foto"
+      src={perfil.foto}
+      alt={`Foto de ${perfil.nombre} ${perfil.apellido}`}
+      width="900"
+      height="1200"
+      data-revelar
+      style={{ '--orden': 4 }}
+    />
   )
 }
 

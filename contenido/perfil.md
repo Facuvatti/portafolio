@@ -13,7 +13,7 @@ disciplinas:
   - Infraestructura
   - Soporte técnico
 github: https://github.com/Facuvatti
-foto: yo.jpg
+foto: yo.webp
 # Lo que está comentado no se muestra. Sacale el # para activarlo.
 # email: tu@correo.com
 # linkedin: https://www.linkedin.com/in/tu-usuario
